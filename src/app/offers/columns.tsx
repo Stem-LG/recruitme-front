@@ -1,13 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-
-export type Offer = {
-    id: number;
-    title: string;
-    company: string;
-    description: string;
-    skills: string;
-    createdAt: string;
-};
+import { Offer } from "../types/offer";
 
 export const columns: ColumnDef<Offer>[] = [
     {

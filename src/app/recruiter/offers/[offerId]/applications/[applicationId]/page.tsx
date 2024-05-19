@@ -1,16 +1,10 @@
-import { getOffer } from "@/app/offers/[offerId]/page";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { getApplications } from "../page";
 import { Badge } from "@/components/ui/badge";
-
-export async function getApplication(id: number) {
-    const applications = await getApplications();
-
-    return applications.find((application) => application.id == id);
-}
+import { getOffer } from "@/app/actions/getOffer";
+import { getApplication } from "@/app/actions/getApplication";
 
 export default async function ApplicationDetails({
     params: { offerId, applicationId },
@@ -69,7 +63,7 @@ export default async function ApplicationDetails({
                     <Link href={`/recruiter/offers/${offerId}/applications`}>
                         <Button variant="positive">Accept</Button>
                     </Link>
-                    <Link href={`/recruiter/offers/${offerId}/edit`}>
+                    <Link href={`/recruiter/offers/${offerId}/applications`}>
                         <Button variant="destructive">Reject</Button>
                     </Link>
                 </CardFooter>

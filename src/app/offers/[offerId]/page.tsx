@@ -1,14 +1,8 @@
+import { getOffer } from "@/app/actions/getOffer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { getOffers } from "../page";
-
-export async function getOffer(offerId: number) {
-    const offers = await getOffers();
-
-    return offers.find((offer) => offer.id == offerId);
-}
 
 export default async function Offer({ params: { offerId } }: { params: { offerId: number } }) {
     const offer = await getOffer(offerId);

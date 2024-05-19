@@ -1,34 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { DataTable } from "./data-table";
-import { Offer, columns } from "./columns";
+import { columns } from "./columns";
 import Link from "next/link";
-
-async function getData(): Promise<Offer[]> {
-    // Fetch data from your API here.
-
-    const offers: Offer[] = [
-        {
-            id: 1,
-            title: "Job 1",
-            createdAt: "2022-01-01",
-        },
-        {
-            id: 2,
-            title: "Job 2",
-            createdAt: "2022-01-01",
-        },
-        {
-            id: 3,
-            title: "Job 3",
-            createdAt: "2022-01-01",
-        },
-    ];
-
-    return offers;
-}
+import { getOffers } from "@/app/actions/getOffers";
 
 export default async function Offers() {
-    const data = await getData();
+    const data = await getOffers();
 
     return (
         <div className="pt-20 px-4 space-y-5">

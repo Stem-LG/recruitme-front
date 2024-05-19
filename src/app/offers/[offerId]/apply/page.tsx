@@ -5,8 +5,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChevronLeft } from "lucide-react";
-import { getOffer } from "../page";
 import { Textarea } from "@/components/ui/textarea";
+import { getOffer } from "@/app/actions/getOffer";
 
 export default async function ApplicationForm({ params: { offerId } }: { params: { offerId: number } }) {
     const offer = await getOffer(offerId);
@@ -14,7 +14,7 @@ export default async function ApplicationForm({ params: { offerId } }: { params:
     return (
         <div className="pt-20 px-4 space-y-5">
             <div className="flex items-center gap-2">
-                <Link href="/offers">
+                <Link href={`/offers/${offerId}`}>
                     <Button variant="ghost" size="icon">
                         <ChevronLeft />
                     </Button>

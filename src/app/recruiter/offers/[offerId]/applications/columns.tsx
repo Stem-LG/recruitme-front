@@ -1,16 +1,7 @@
 "use client";
+import { Application } from "@/app/types/application";
 import { Badge } from "@/components/ui/badge";
 import { ColumnDef } from "@tanstack/react-table";
-
-export type Application = {
-    id: number;
-    createdAt: string;
-    status: "accepted" | "rejected" | "pending";
-    name: string;
-    email: string;
-    motivation: string;
-    summary: string;
-};
 
 export const columns: ColumnDef<Application>[] = [
     {

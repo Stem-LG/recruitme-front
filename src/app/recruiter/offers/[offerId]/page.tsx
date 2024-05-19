@@ -1,19 +1,9 @@
-import { getOffer } from "@/app/offers/[offerId]/page";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
-import { DialogClose } from "@radix-ui/react-dialog";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { DeleteDialog } from "./_components/deleteDialog";
+import { getOffer } from "@/app/actions/getOffer";
 
 export default async function Offer({ params: { offerId } }: { params: { offerId: number } }) {
     const offer = await getOffer(offerId);

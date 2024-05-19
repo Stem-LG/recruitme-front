@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChevronLeft } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
-import { getOffer } from "@/app/offers/[offerId]/page";
+import { getOffer } from "@/app/actions/getOffer";
 
 export default async function EditOfferForm({ params: { offerId } }: { params: { offerId: number } }) {
     const offer = await getOffer(offerId);
