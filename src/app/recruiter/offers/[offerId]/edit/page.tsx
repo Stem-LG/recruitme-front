@@ -6,9 +6,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChevronLeft } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
-import { getOffer } from "@/app/actions/getOffer";
+import { getOffer, updateOffer } from "@/app/actions/offers";
 
-export default async function EditOfferForm({ params: { offerId } }: { params: { offerId: number } }) {
+export default async function EditOfferForm({
+    params: { offerId },
+    searchParams: { status },
+}: {
+    params: { offerId: number };
+    searchParams: { status?: string };
+}) {
     const offer = await getOffer(offerId);
 
     return (
@@ -27,47 +33,61 @@ export default async function EditOfferForm({ params: { offerId } }: { params: {
                     <CardTitle className="text-xl">Job Information</CardTitle>
                     <CardDescription>Modify job information to edit</CardDescription>
                 </CardHeader>
-                <CardContent>
-                    <div className="grid gap-4">
-                        <div className="grid gap-2">
-                            <Label htmlFor="title">Title</Label>
-                            <Input id="title" placeholder="Example Title" required defaultValue={offer.title} />
-                        </div>
-                        <div className="grid gap-2">
-                            <Label htmlFor="company">Company</Label>
-                            <Input
-                                id="company"
-                                type="text"
-                                placeholder="Example Company"
-                                defaultValue={offer.company}
-                                required
-                            />
-                        </div>
+                <form action={updateOffer}>
+                    <input hidden readOnly name="offerId" value={offerId} />
+                    <CardContent>
+                        <div className="grid gap-4">
+                            <div className="grid gap-2">
+                                <Label htmlFor="title">Title</Label>
+                                <Input
+                                    id="title"
+                                    name="title"
+                                    placeholder="Example Title"
+                                    required
+                                    defaultValue={offer.title}
+                                />
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="company">Company</Label>
+                                <Input
+                                    id="company"
+                                    name="company"
+                                    type="text"
+                                    placeholder="Example Company"
+                                    defaultValue={offer.company}
+                                    required
+                                />
+                            </div>
 
-                        <div className="grid gap-2">
-                            <Label htmlFor="skills">Skills</Label>
-                            <Input
-                                id="skills"
-                                type="text"
-                                placeholder="Skill1, Skill2, Skill3..."
-                                defaultValue={offer.skills}
-                                required
-                            />
-                        </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="skills">Skills</Label>
+                                <Input
+                                    id="skills"
+                                    name="skills"
+                                    type="text"
+                                    placeholder="Skill1, Skill2, Skill3..."
+                                    defaultValue={offer.skills}
+                                    required
+                                />
+                            </div>
 
-                        <div className="grid gap-2">
-                            <Label htmlFor="description">Description</Label>
-                            <Textarea id="description" rows={5} defaultValue={offer.description} required />
+                            <div className="grid gap-2">
+                                <Label htmlFor="description">Description</Label>
+                                <Textarea
+                                    id="description"
+                                    name="description"
+                                    rows={5}
+                                    defaultValue={offer.description}
+                                    required
+                                />
+                            </div>
+                            <Button type="submit" className="w-full">
+                                Save
+                            </Button>
+                            {status == "failed" && <p className="text-red-500">Something went wrong</p>}
                         </div>
-                    </div>
-                </CardContent>
-                <CardFooter>
-                    <Link href="/recruiter/offers">
-                        <Button type="submit" className="w-full">
-                            Save
-                        </Button>
-                    </Link>
-                </CardFooter>
+                    </CardContent>
+                </form>
             </Card>
         </div>
     );

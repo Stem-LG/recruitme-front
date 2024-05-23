@@ -3,10 +3,14 @@ import { DataTable } from "./data-table";
 import {  columns } from "./columns";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-import { getApplications } from "@/app/actions/getApplications";
+import { getOfferApplications } from "@/app/actions/applications";
+import { getAuth, logout } from "@/app/actions/auth";
 
 export default async function Offers({ params: { offerId } }: { params: { offerId: number } }) {
-    const data = await getApplications();
+    
+    const auth = await getAuth();
+
+    const data = await getOfferApplications(offerId);
 
     return (
         <div className="pt-20 px-4 space-y-5">
@@ -17,10 +21,10 @@ export default async function Offers({ params: { offerId } }: { params: { offerI
                     </Button>
                 </Link>
                 <p className="text-3xl grow font-semibold">Job Applicants</p>
-                <p className="font-medium">Louay Ghanney</p>
-                <Link href="/offers">
+                <p className="font-medium">{auth.name}</p>
+                <form action={logout}>
                     <Button>Logout</Button>
-                </Link>
+                </form>
             </div>
             <DataTable columns={columns} data={data} offerId={offerId} />
         </div>

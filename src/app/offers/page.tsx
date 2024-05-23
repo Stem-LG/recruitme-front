@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import Link from "next/link";
-import { getOffers } from "../actions/getOffers";
+import { getOffers } from "../actions/offers";
 
 export default async function Offers() {
     const data = await getOffers();

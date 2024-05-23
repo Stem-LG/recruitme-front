@@ -1,7 +1,8 @@
-import { Offer } from "@/app/types/offer";
+"use client";
+import { miniOffer } from "@/types/offer";
 import { ColumnDef } from "@tanstack/react-table";
 
-export const columns: ColumnDef<Offer>[] = [
+export const columns: ColumnDef<miniOffer>[] = [
     {
         accessorKey: "id",
         header: "ID",
@@ -16,5 +17,15 @@ export const columns: ColumnDef<Offer>[] = [
         accessorKey: "createdAt",
         header: "Created At",
         size: 200,
+        cell: ({ getValue }) => {
+            return new Date(getValue<Date>()).toLocaleString("en-GB", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false,
+            });
+        },
     },
 ];

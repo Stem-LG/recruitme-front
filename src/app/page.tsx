@@ -1,13 +1,12 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { getAuth } from "./actions/auth";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-    return (
-        <div>
-            hello{" "}
-            <Link href="/offers">
-                <Button>Access</Button>
-            </Link>
-        </div>
-    );
+export default async function Home() {
+    const auth = await getAuth({ required: false });
+
+    if (auth) {
+        return redirect("/recruiter/offers");
+    }
+
+    return redirect("/offers");
 }

@@ -1,11 +1,26 @@
-import { getOffer } from "@/app/actions/getOffer";
+import { getOffer } from "@/app/actions/offers";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
-export default async function Offer({ params: { offerId } }: { params: { offerId: number } }) {
+export default async function Offer({
+    params: { offerId },
+    searchParams: { status },
+}: {
+    params: { offerId: number };
+    searchParams: { status?: string };
+}) {
     const offer = await getOffer(offerId);
+
+    const createdAt = new Date(offer.createdAt).toLocaleString("en-GB", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+    });
 
     return (
         <div className="pt-20 px-4 space-y-5">
@@ -28,7 +43,7 @@ export default async function Offer({ params: { offerId } }: { params: { offerId
                         <CardDescription>#{offer.id}</CardDescription>
                     </div>
                     <CardDescription>
-                        Posted at {offer.createdAt} by {offer.company}
+                        Posted at {createdAt} for {offer.company}
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-2">
@@ -45,6 +60,8 @@ export default async function Offer({ params: { offerId } }: { params: { offerId
                     </Link>
                 </CardFooter>
             </Card>
+
+            {status === "success" && <div className="text-green-500">Application submitted successfully!</div>}
         </div>
     );
 }

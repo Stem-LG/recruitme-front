@@ -1,9 +1,9 @@
 "use client";
-import { Application } from "@/app/types/application";
+import { application, miniApplication } from "@/types/application";
 import { Badge } from "@/components/ui/badge";
 import { ColumnDef } from "@tanstack/react-table";
 
-export const columns: ColumnDef<Application>[] = [
+export const columns: ColumnDef<miniApplication>[] = [
     {
         accessorKey: "id",
         header: "ID",
